@@ -1,5 +1,6 @@
 const express = require('express')
 const dbConnection = require('./src/config/db')
+const userRouter = require('./src/routes/user.route')
 require('dotenv').config()
 
 const app = express()
@@ -12,6 +13,7 @@ app.use(express.json())
 app.get('/',(req,res)=>{
   return res.send('<h1>This is the Home route</h1>')
 })
+app.use('/user',userRouter)
 
 app.listen(port,async()=>{
 try {

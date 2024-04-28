@@ -5,6 +5,6 @@ let userSchema = new Schema({
   password:{type:String,required:true}
 })
 
-let userModel = model('user',bookSchema)
+let userModel = model('user',userSchema)
 
 module.exports = userModel
