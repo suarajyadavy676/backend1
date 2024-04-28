@@ -4,7 +4,7 @@ let auth  = (req,res,next)=>{
   if(!token){
     return res.send(400).send("token is not provided")
   }
-  jwt.verify(token,"masai",(err,decode)=>{
+  jwt.verify(token,process.env.SECRET,(err,decode)=>{
     if(err){
       return res.send("token is not correct")
     }

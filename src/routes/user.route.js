@@ -33,7 +33,7 @@ userRouter.post('/signIn',async(req,res)=>{
     if(!user){
       res.status(404).send("user is not found")
     }
-    jwt.sign({userId:user._id},"masai",{ expiresIn: '1h' },(error,token)=>{
+    jwt.sign({userId:user._id},process.env.SECRET,{ expiresIn: '1h' },(error,token)=>{
       if(error){
         return res.status(404).send("error in jwt sign part")
       }
