@@ -3,7 +3,7 @@ const bookModel = require("../models/book.model")
 const auth = require("../middlewares/auth")
 let bookRouter = Router()
 //craete book
- bookRouter.post('/',async(req,res)=>{
+ bookRouter.post('/',auth,async(req,res)=>{
   try {
     await bookModel.create(req.body)
     res.send("book created successfully")
@@ -23,7 +23,7 @@ bookRouter.get('/',auth,async(req,res)=>{
 })
 
 //update the book
-bookRouter.patch('/:id',async(req,res)=>{
+bookRouter.patch('/:id',auth,async(req,res)=>{
   let {id} = req.params
   console.log(req.body)
   try {
@@ -35,7 +35,7 @@ bookRouter.patch('/:id',async(req,res)=>{
 })
 
 //delete
-bookRouter.delete('/:id',async(req,res)=>{
+bookRouter.delete('/:id',auth,async(req,res)=>{
   const {id} = req.params
   try {
     await bookModel.findByIdAndDelete(id)
