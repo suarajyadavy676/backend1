@@ -1,5 +1,6 @@
 const {Router} = require("express")
 const bookModel = require("../models/book.model")
+const auth = require("../middlewares/auth")
 let bookRouter = Router()
 //craete book
  bookRouter.post('/',async(req,res)=>{
@@ -12,7 +13,8 @@ let bookRouter = Router()
  })
 
  //read book
-bookRouter.get('/',async(req,res)=>{
+bookRouter.get('/',auth,async(req,res)=>{
+  console.log(("token"))
   try {
     return res.send(await bookModel.find())
   } catch (error) {
@@ -31,4 +33,16 @@ bookRouter.patch('/:id',async(req,res)=>{
     console.log("error in updating time")
   }
 })
+
+//delete
+bookRouter.delete('/:id',async(req,res)=>{
+  const {id} = req.params
+  try {
+    await bookModel.findByIdAndDelete(id)
+    res.send("book deleted successfully")
+  } catch (error) {
+    console.log('error in deleting time')
+  }
+})
+
 module.exports = bookRouter
