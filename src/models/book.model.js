@@ -1,8 +1,9 @@
 const {Schema,model} = require('mongoose')
-let reviewSchema = new Schema({
-  review:{type:String,required:true}
+let bookSchema = new Schema({
+  auther:{type:String,required:true},
+  title:{type:String,required:true},
 })
 
-let reviewModel = model('user',reviewSchema)
+let bookModel = model('book',bookSchema)
 
-module.exports = reviewModel
+module.exports = bookModel
