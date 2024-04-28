@@ -1,9 +1,11 @@
 const {Router} = require("express")
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const userModel = require("../models/user.model")
 
 let userRouter = Router()
 
+//user registration route
 userRouter.post('/register',async(req,res)=>{
   let {password,email} = req.body
   let user = await userModel.findOne({email})
@@ -20,6 +22,25 @@ userRouter.post('/register',async(req,res)=>{
   });
   } catch (error) {
     return res.status(401).send("something wrong in input field")
+  }
+})
+
+//user login route
+userRouter.post('/signIn',async(req,res)=>{
+  let {email,password} = req.body
+  let user = await userModel.findOne({email})
+  try {
+    if(!user){
+      res.status(404).send("user is not found")
+    }
+    jwt.sign({userId:user._id},"masai",(error,token)=>{
+      if(error){
+        return res.status(404).send("error in jwt sign part")
+      }
+      return res.send({msg:"token generated successfully",token})
+    })
+  } catch (error) {
+    return res.status(401).send("something wrong")
   }
 })
 
