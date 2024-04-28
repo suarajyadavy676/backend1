@@ -1,4 +1,5 @@
 const express = require('express')
+const dbConnection = require('./src/config/db')
 require('dotenv').config()
 
 const app = express()
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 
 app.listen(port,async()=>{
 try {
+  dbConnection()
   console.log(`server is running at ${port}`)
 } catch (error) {
   console.log("error in listen")
